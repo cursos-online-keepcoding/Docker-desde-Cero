@@ -1,0 +1,43 @@
+#Update the apt package index:
+
+$ sudo apt-get update
+
+# instalar paquetes que permitan a apt el uso de repositorio a través de HTTPS
+sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    software-properties-common
+
+# adicionar llaves oficiales de Ubuntu
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+#Verify that you now have the key with the fingerprint 9DC8 5822 9FC7 DD38 854A E2D8 8D81 803C 0EBF CD88, by searching for the last 8 characters of the fingerprint.
+
+sudo apt-key fingerprint 0EBFCD88
+
+# adicionar repositorios de Docker
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+
+# actualizar paquetes del sistema
+sudo apt-get update
+
+# instalar docker ce
+sudo apt-get install docker-ce
+
+# versión de docker
+docker --version
+
+# información de Docker
+docker info
+
+# crear grupo docker
+sudo groupadd docker  --> Ya existe porque la máquina ya lo tiene
+
+#Agregamos el usuario ubuntu al grupo de docker
+sudo usermod -aG docker ubuntu
+
+Se reinicia la máquina y ya será posible ejecutar >docker info sin el sudo
